@@ -4,9 +4,6 @@ import logo from './logo.svg';
 import './App.css';
 import { Thermometer } from './assets';
 import Geocode from "react-geocode";
-import { io } from 'socket.io-client';
-
-console.log(io);
 
 const TESTE = 'TESTE';
 
@@ -17,16 +14,15 @@ Geocode.setRegion("br");
 
 const temperature = 15;
 
-const socket = io('ws://localhost:3000');
+const socket = new WebSocket('ws://mPy.local');
 
 const App = (props) => {
-  console.log(props);
   const [position, setPosition] = useState(null);
   const [city, setCity] = useState(null);
 
-  socket.on('message', data => {
-    console.log(data);
-  });
+  socket.onmessage = (event) => {
+    console.log(event);
+  }
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
