@@ -11,7 +11,7 @@
     "react-geocode": "^0.2.2",
     "react-loading": "^2.0.3",
     "react-scripts": "4.0.0",
-    "react-socket-io": "^0.2.5",
+    "socket.io-client": "^3.0.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
