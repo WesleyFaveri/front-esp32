@@ -4,8 +4,11 @@ import logo from './logo.svg';
 import './App.css';
 import { Thermometer } from './assets';
 import Geocode from "react-geocode";
+import { io } from 'socket.io-client';
 
-const TESTE = 'GOOGLEKEY';
+console.log(io);
+
+const TESTE = 'TESTE';
 
 Geocode.setApiKey(TESTE);
 
@@ -14,9 +17,16 @@ Geocode.setRegion("br");
 
 const temperature = 15;
 
-function App() {
+const socket = io('ws://localhost:3000');
+
+const App = (props) => {
+  console.log(props);
   const [position, setPosition] = useState(null);
   const [city, setCity] = useState(null);
+
+  socket.on('message', data => {
+    console.log(data);
+  });
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -39,7 +49,7 @@ function App() {
     if (position) {
       Geocode.fromLatLng(position.latitude, position.longitude).then((response) => {
         const address = response.results[6].formatted_address;
-        
+
         setCity(address)
       }, (error) => console.error(error));
     }
